@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #5fbf8f;
+  --accent-dim: #3e8c67;
+  color-scheme: dark;
+}
+
+/* Chosen at runtime by the terminal's `theme <color>` command, and
+   persisted to localStorage — see components/terminal/commands.tsx */
+html[data-accent="amber"] {
+  --accent: #d8a657;
+  --accent-dim: #b98a3e;
+}
+html[data-accent="blue"] {
+  --accent: #6e9fd8;
+  --accent-dim: #4e7fbf;
+}
+
+@layer base {
+  * {
+    border-color: theme("colors.border.DEFAULT");
+  }
+
+  body {
+    background-color: #0b0d10;
+    color: #e4e7eb;
+  }
+}
+
+::selection {
+  background-color: var(--accent);
+  color: #0b0d10;
+}
+
+/* Slim, quiet scrollbars that fit the developer-OS aesthetic */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #333a45 transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #333a45;
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Keyboard users get a clearly visible focus ring; everyone else doesn't
+   see one on mouse/touch interaction. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
